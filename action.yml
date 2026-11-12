@@ -5,6 +5,10 @@ inputs:
     description: Repository-relative image/stage/evidence configuration, without policy overrides
     required: false
     default: docs/image-security/requirements.json
+  builder-observation:
+    description: Repository-relative fresh caller observation for explicitly reviewed builtin frontend only
+    required: false
+    default: ""
 runs:
   using: composite
   steps:
@@ -12,8 +16,10 @@ runs:
       shell: bash
       env:
         ADMISSION_ACTION_PATH: ${{ github.action_path }}
+        ADMISSION_BUILDER_OBSERVATION: ${{ inputs.builder-observation }}
         ADMISSION_REQUIREMENTS: ${{ inputs.requirements }}
       run: |
         set -euo pipefail
         /usr/bin/python3 -I -B "$ADMISSION_ACTION_PATH/check.py" \
-          --root "$GITHUB_WORKSPACE" --requirements "$ADMISSION_REQUIREMENTS"
+          --root "$GITHUB_WORKSPACE" --requirements "$ADMISSION_REQUIREMENTS" \
+          --builder-observation "$ADMISSION_BUILDER_OBSERVATION"

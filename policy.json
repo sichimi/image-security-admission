@@ -2,13 +2,44 @@
   "schemaVersion": 1,
   "maxEvidenceAgeHours": 24,
   "maxClockSkewMinutes": 5,
+  "maxBuilderObservationAgeMinutes": 5,
   "roles": ["build", "runtime", "fixture", "base"],
   "requiredEvidenceHashes": ["sbom", "scan", "provenance", "advisoryReview"],
+  "reviewedBuilderSourceRepositories": ["https://github.com/sichimi/sichimi-infra"],
+  "requiredBuilderSourceEvidenceHashes": ["recipe", "patch", "inputs", "buildLog", "compatibility"],
   "runtimeRules": {
     "node": {
       "seriesLength": 1,
       "minimumBySeries": {"22": [22, 23, 5], "24": [24, 22, 3], "26": [26, 13, 1]},
       "sources": ["https://nodejs.org/en/blog/release/v22.23.5", "https://nodejs.org/en/blog/release/v24.22.3", "https://nodejs.org/en/blog/release/v26.13.1"]
+    },
+    "buildkit": {"seriesLength": 2, "minimumBySeries": {"0.34": [0, 34, 2]}, "sources": ["https://github.com/moby/buildkit/security/advisories/GHSA-2fqp-xg6f-v7gj", "https://github.com/moby/buildkit/security/advisories/GHSA-w26x-xg27-7qjc"]},
+    "go": {"seriesLength": 2, "minimumBySeries": {"1.26": [1, 26, 11], "1.27": [1, 27, 4]}, "sources": ["https://go.dev/doc/devel/release#go1.27.4", "https://go.dev/doc/devel/release#go1.26.11"]},
+    "go-archive": {"seriesLength": 2, "minimumBySeries": {"0.3": [0, 3, 0]}, "sources": ["https://github.com/moby/go-archive/security/advisories/GHSA-hfg8-hc9c-6c3h"]},
+    "php": {"seriesLength": 2, "minimumBySeries": {"8.3": [8, 3, 36]}, "sources": ["https://www.php.net/releases/8_3_36.php", "https://www.php.net/ChangeLog-8.php#8.3.36"]},
+    "apache": {"seriesLength": 2, "minimumBySeries": {"2.4": [2, 4, 71]}, "sources": ["https://httpd.apache.org/security/vulnerabilities_24.html"]},
+    "java": {
+      "seriesLength": 1,
+      "versionComponentCounts": [
+        3,
+        4,
+        5
+      ],
+      "allowBuildNumber": true,
+      "minimumBySeries": {
+        "17": [
+          17,
+          0,
+          21,
+          0,
+          3
+        ]
+      },
+      "sources": [
+        "https://www.oracle.com/java/technologies/javase/17-0-21-0-3-relnotes.html",
+        "https://www.oracle.com/security-alerts/alert-cve-2026-114820.html",
+        "https://www.oracle.com/security-alerts/alert-cve-2026-91403.html"
+      ]
     },
     "nginx": {
       "seriesLength": 2,
@@ -16,8 +47,12 @@
       "sources": ["https://nginx.org/en/security_advisories.html"]
     }
   },
+  "osBaseRepositories": ["cgr.dev/chainguard/wolfi-base"],
   "requiredRuntimesByRepository": {
+    "cgr.dev/chainguard/wolfi-base": [],
     "docker.io/docker/dockerfile": [],
+    "docker.io/library/golang": ["go"],
+    "cgr.dev/chainguard/go": ["go"],
     "docker.io/library/node": ["node"],
     "cgr.dev/chainguard/node": ["node"],
     "docker.io/library/nginx": ["nginx"],
