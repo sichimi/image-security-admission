@@ -1,0 +1,19 @@
+name: Shared image base security admission
+description: Enforce centrally reviewed image criteria using caller configuration only
+inputs:
+  requirements:
+    description: Repository-relative image/stage/evidence configuration, without policy overrides
+    required: false
+    default: docs/image-security/requirements.json
+runs:
+  using: composite
+  steps:
+    - name: Check shared image criteria before caller Registry authentication
+      shell: bash
+      env:
+        ADMISSION_ACTION_PATH: ${{ github.action_path }}
+        ADMISSION_REQUIREMENTS: ${{ inputs.requirements }}
+      run: |
+        set -euo pipefail
+        /usr/bin/python3 -I -B "$ADMISSION_ACTION_PATH/check.py" \
+          --root "$GITHUB_WORKSPACE" --requirements "$ADMISSION_REQUIREMENTS"
