@@ -2,11 +2,11 @@
   "schemaVersion": 1,
   "generated": true,
   "editableAuthority": "sichimi/sichimi-ci",
-  "sourceRevision": "2baea918fc81813dcfd35ab3bf000df63b682f0c",
+  "sourceRevision": "97eb4a6c95812df3e8d371ab2cba925f78720101",
   "sourcePath": ".github/actions/image-security-admission",
   "files": {
-    "action.yml": "b2802aeeaed4025799292d06544614d6a04eab041777d646ee23109569d2c9a9",
-    "check.py": "1a7babbde90ebc7ff3bae189d00af0479e2882ec326e22aa884c4c9ece7f07ad",
-    "policy.json": "2624fea151a2da3f46e0cdf7bcd8ae4a88f33499b3b8ab7e232c5c98517f60e1"
+    "action.yml": "1007b52283643767700f5dbbf3de8157e39a9106ae87b74b30ed4c752f2b074f",
+    "check.py": "d54cc042885c92ba8fda3d2d24ae4772f4e90de89fcb8603c4c6b49191208530",
+    "policy.json": "735471fe2a436d16e81e2163b537b48059408d9c98156a949e547aba9e839aeb"
   }
 }
